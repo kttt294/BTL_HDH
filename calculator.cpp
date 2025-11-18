@@ -96,7 +96,7 @@ namespace Calculator
             if (linear.hasSolution)
             {
                 solution.root1 = linear.root;
-                solution.root2 = linear.infiniteSolutions ? linear.root : linear.root;
+                solution.root2 = linear.root;
             }
             return solution;
         }

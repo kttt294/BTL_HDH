@@ -6,24 +6,24 @@ SECTIONS
 {
     . = 0x0100000;
 
-    .text :
+    .text : ALIGN(4K)
     {
         *(.multiboot)
         *(.text*)
         *(.rodata)
     }
 
-    .data :
+    .data : ALIGN(4K)
     {
         start_ctors = .;
-        KEEP(*( .init_array));
-        KEEP(*(SORT_BY_INIT_PRIORITY( .init_array.* )));
+        KEEP(*(.init_array));
+        KEEP(*(SORT_BY_INIT_PRIORITY(.init_array.*)));
         end_ctors = .;
 
         *(.data)
     }
 
-    .bss :
+    .bss : ALIGN(4K)
     {
         *(.bss)
     }

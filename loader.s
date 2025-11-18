@@ -16,11 +16,12 @@
 loader:
     cli
     mov $kernel_stack, %esp
+    and $0xFFFFFFF0, %esp         # align stack to 16 bytes
     mov %eax, %esi                # preserve Multiboot magic value
     mov %ebx, %edi                # preserve Multiboot info pointer
     call callConstructors
-    push %esi                    # push arguments right-to-left (magic, then info)
-    push %edi
+    push %esi                    # push arguments right-to-left (magicNum first)
+    push %edi                    # then multibootStruct
     call kernelMain
     add $8, %esp                 # clean up parameters for cdecl
 
