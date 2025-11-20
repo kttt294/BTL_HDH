@@ -16,6 +16,14 @@ extern "C" void callConstructors()
 
 extern "C" void kernelMain(void* multibootStruct, uint32_t magicNum)
 {
+    // Validate multiboot magic number
+    if (magicNum != 0x2BADB002)
+    {
+        // Invalid boot, halt
+        while (true)
+            asm("hlt");
+    }
+
     Console& console = GetConsole();
     console.PrintLine("Hello world");
     console.PrintLine("This is my OS");

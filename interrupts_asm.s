@@ -4,7 +4,7 @@
 .extern _ZN16InterruptManager15HandleInterruptEhj
 .global _ZN16InterruptManager22IgnoreInterruptRequestEv
 
-.data
+.section .data
     interruptNum: .byte 0
 
 
