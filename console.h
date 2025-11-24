@@ -15,6 +15,8 @@ public:
     void PutChar(char c);
     void Print(const char* str);
     void PrintLine(const char* str);
+    void PrintInt(int32_t value);
+    void PrintDouble(double value, uint8_t precision = 2);
     void Backspace();
     void Clear();
 

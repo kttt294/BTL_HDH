@@ -25,6 +25,13 @@ struct QuadraticSolution
     double root2;
 };
 
+struct ExpressionResult
+{
+    bool valid;
+    double value;
+    const char* errorMessage;
+};
+
 namespace Calculator
 {
     double Add(double lhs, double rhs);
@@ -34,6 +41,8 @@ namespace Calculator
 
     LinearSolution SolveLinear(double a, double b);
     QuadraticSolution SolveQuadratic(double a, double b, double c);
+
+    ExpressionResult EvaluateExpression(const char* expression);
 }
 
 #endif

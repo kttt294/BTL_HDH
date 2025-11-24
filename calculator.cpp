@@ -118,4 +118,197 @@ namespace Calculator
         solution.root2 = (-b - sqrtDisc) / denom;
         return solution;
     }
+
+    ExpressionResult EvaluateExpression(const char* expression)
+    {
+        ExpressionResult result;
+        result.valid = false;
+        result.value = 0.0;
+        result.errorMessage = "";
+
+        if (!expression || expression[0] == '\0')
+        {
+            result.errorMessage = "Empty expression";
+            return result;
+        }
+
+        // Parse the expression to extract left operand, operator, and right operand
+        double leftOperand = 0.0;
+        double rightOperand = 0.0;
+        char op = '\0';
+        bool foundOperator = false;
+        bool isNegative = false;
+        int32_t i = 0;
+
+        // Skip leading whitespace
+        while (expression[i] == ' ')
+            ++i;
+
+        // Check if first character is negative sign
+        if (expression[i] == '-')
+        {
+            isNegative = true;
+            ++i;
+        }
+
+        // Parse left operand
+        bool hasDigit = false;
+        bool hasDecimal = false;
+        double decimalPlace = 0.1;
+
+        while (expression[i] != '\0')
+        {
+            char c = expression[i];
+
+            if (c >= '0' && c <= '9')
+            {
+                hasDigit = true;
+                if (hasDecimal)
+                {
+                    leftOperand += (c - '0') * decimalPlace;
+                    decimalPlace *= 0.1;
+                }
+                else
+                {
+                    leftOperand = leftOperand * 10.0 + (c - '0');
+                }
+            }
+            else if (c == '.' && !hasDecimal)
+            {
+                hasDecimal = true;
+            }
+            else if (c == ' ')
+            {
+                // Skip whitespace
+            }
+            else if (c == '+' || c == '-' || c == '*' || c == '/')
+            {
+                op = c;
+                foundOperator = true;
+                ++i;
+                break;
+            }
+            else
+            {
+                result.errorMessage = "Invalid character";
+                return result;
+            }
+            ++i;
+        }
+
+        if (!hasDigit)
+        {
+            result.errorMessage = "Invalid number";
+            return result;
+        }
+
+        if (isNegative)
+            leftOperand = -leftOperand;
+
+        if (!foundOperator)
+        {
+            result.errorMessage = "No operator found";
+            return result;
+        }
+
+        // Skip whitespace after operator
+        while (expression[i] == ' ')
+            ++i;
+
+        // Check for negative right operand
+        bool rightIsNegative = false;
+        if (expression[i] == '-')
+        {
+            rightIsNegative = true;
+            ++i;
+        }
+
+        // Parse right operand
+        hasDigit = false;
+        hasDecimal = false;
+        decimalPlace = 0.1;
+
+        while (expression[i] != '\0')
+        {
+            char c = expression[i];
+
+            if (c >= '0' && c <= '9')
+            {
+                hasDigit = true;
+                if (hasDecimal)
+                {
+                    rightOperand += (c - '0') * decimalPlace;
+                    decimalPlace *= 0.1;
+                }
+                else
+                {
+                    rightOperand = rightOperand * 10.0 + (c - '0');
+                }
+            }
+            else if (c == '.' && !hasDecimal)
+            {
+                hasDecimal = true;
+            }
+            else if (c == ' ')
+            {
+                // Skip whitespace
+            }
+            else
+            {
+                result.errorMessage = "Invalid character in right operand";
+                return result;
+            }
+            ++i;
+        }
+
+        if (!hasDigit)
+        {
+            result.errorMessage = "Invalid right operand";
+            return result;
+        }
+
+        if (rightIsNegative)
+            rightOperand = -rightOperand;
+
+        // Perform the operation
+        switch (op)
+        {
+            case '+':
+                result.value = Add(leftOperand, rightOperand);
+                result.valid = true;
+                break;
+
+            case '-':
+                result.value = Subtract(leftOperand, rightOperand);
+                result.valid = true;
+                break;
+
+            case '*':
+                result.value = Multiply(leftOperand, rightOperand);
+                result.valid = true;
+                break;
+
+            case '/':
+            {
+                OperationResult divResult = Divide(leftOperand, rightOperand);
+                if (divResult.valid)
+                {
+                    result.value = divResult.value;
+                    result.valid = true;
+                }
+                else
+                {
+                    result.errorMessage = "Division by zero";
+                }
+                break;
+            }
+
+            default:
+                result.errorMessage = "Unknown operator";
+                break;
+        }
+
+        return result;
+    }
 }
+

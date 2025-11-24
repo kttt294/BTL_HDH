@@ -66,6 +66,59 @@ void Console::PrintLine(const char* str)
     PutChar('\n');
 }
 
+void Console::PrintInt(int32_t value)
+{
+    if (value == 0)
+    {
+        PutChar('0');
+        return;
+    }
+
+    if (value < 0)
+    {
+        PutChar('-');
+        value = -value;
+    }
+
+    char buffer[12];
+    int32_t i = 0;
+
+    while (value > 0)
+    {
+        buffer[i++] = '0' + (value % 10);
+        value /= 10;
+    }
+
+    while (i > 0)
+        PutChar(buffer[--i]);
+}
+
+void Console::PrintDouble(double value, uint8_t precision)
+{
+    if (value < 0.0)
+    {
+        PutChar('-');
+        value = -value;
+    }
+
+    int32_t intPart = (int32_t)value;
+    PrintInt(intPart);
+
+    if (precision > 0)
+    {
+        PutChar('.');
+        double fracPart = value - (double)intPart;
+
+        for (uint8_t i = 0; i < precision; ++i)
+        {
+            fracPart *= 10.0;
+            int32_t digit = (int32_t)fracPart;
+            PutChar('0' + digit);
+            fracPart -= (double)digit;
+        }
+    }
+}
+
 void Console::Backspace()
 {
     if (cursorX == 0 && cursorY == 0)

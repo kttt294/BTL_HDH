@@ -3,6 +3,7 @@
 #include "interrupts.h"
 #include "keyboard.h"
 #include "console.h"
+#include "calculator.h"
 
 typedef void (*constructor)();
 extern "C" constructor start_ctors;
@@ -25,14 +26,18 @@ extern "C" void kernelMain(void* multibootStruct, uint32_t magicNum)
     }
 
     Console& console = GetConsole();
-    console.PrintLine("Hello world");
-    console.PrintLine("This is my OS");
+    console.SetColor(0x0A, 0x00);  // Green text on black background
+    console.PrintLine("===================================");
+    console.PrintLine("   Simple Calculator OS");
+    console.PrintLine("===================================");
+    console.SetColor(0x0F, 0x00);  // White text
+    console.PrintLine("Enter expressions like: 5 + 3");
+    console.PrintLine("Supported: + - * /");
+    console.PrintLine("");
 
     GlobalDescriptorTable gdt;
     InterruptManager interrupts(&gdt);
     KeyboardDriver keyboard(&interrupts);
-
-    // Here init hardware
 
     interrupts.Activate();
 
@@ -40,9 +45,29 @@ extern "C" void kernelMain(void* multibootStruct, uint32_t magicNum)
 
     while (true)
     {
-        console.Print("\n> ");
+        console.SetColor(0x0E, 0x00);  // Yellow prompt
+        console.Print("calc> ");
+        console.SetColor(0x0F, 0x00);  // White input
+        
         console.ReadLine(keyboard, inputBuffer, sizeof(inputBuffer));
-        console.Print("You typed: ");
-        console.PrintLine(inputBuffer);
+        
+        // Evaluate the expression
+        ExpressionResult result = Calculator::EvaluateExpression(inputBuffer);
+        
+        if (result.valid)
+        {
+            console.SetColor(0x0A, 0x00);  // Green for result
+            console.Print("Result: ");
+            console.PrintDouble(result.value, 2);
+            console.PrintLine("");
+        }
+        else
+        {
+            console.SetColor(0x0C, 0x00);  // Red for error
+            console.Print("Error: ");
+            console.PrintLine(result.errorMessage);
+        }
+        
+        console.SetColor(0x0F, 0x00);  // Reset to white
     }
 }
