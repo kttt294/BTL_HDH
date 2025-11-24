@@ -74,14 +74,16 @@ void Console::PrintInt(int32_t value)
         return;
     }
 
-    if (value < 0)
-    {
-        PutChar('-');
-        value = -value;
-    }
-
     char buffer[12];
     int32_t i = 0;
+    bool isNegative = false;
+
+    if (value < 0)
+    {
+        isNegative = true;
+        // Handle negative numbers safely to avoid overflow
+        value = -value;
+    }
 
     while (value > 0)
     {
@@ -89,21 +91,36 @@ void Console::PrintInt(int32_t value)
         value /= 10;
     }
 
+    if (isNegative)
+        PutChar('-');
+
     while (i > 0)
         PutChar(buffer[--i]);
 }
 
 void Console::PrintDouble(double value, uint8_t precision)
 {
+    // Handle negative values
     if (value < 0.0)
     {
         PutChar('-');
         value = -value;
     }
 
+    // Print integer part
     int32_t intPart = (int32_t)value;
-    PrintInt(intPart);
+    
+    // Handle case where intPart might be 0 but we still need to show it
+    if (intPart == 0)
+    {
+        PutChar('0');
+    }
+    else
+    {
+        PrintInt(intPart);
+    }
 
+    // Print decimal part
     if (precision > 0)
     {
         PutChar('.');
@@ -113,6 +130,8 @@ void Console::PrintDouble(double value, uint8_t precision)
         {
             fracPart *= 10.0;
             int32_t digit = (int32_t)fracPart;
+            if (digit < 0) digit = 0;  // Safety check
+            if (digit > 9) digit = 9;  // Safety check
             PutChar('0' + digit);
             fracPart -= (double)digit;
         }
