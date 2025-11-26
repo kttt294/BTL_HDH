@@ -21,11 +21,12 @@ public:
         uint32_t Limit();
 
     private:
-        uint16_t limit_low;
-        uint8_t flags_limit_high;
-        uint16_t base_low;
-        uint8_t base_high;
-        uint8_t type;
+        uint16_t limit_low;       // bytes 0-1
+        uint16_t base_low;        // bytes 2-3
+        uint8_t base_mid;         // byte 4
+        uint8_t type;             // byte 5
+        uint8_t flags_limit_high; // byte 6
+        uint8_t base_high;        // byte 7
     } __attribute__((packed));
 
 
