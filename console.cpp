@@ -159,7 +159,7 @@ void Console::Backspace()
 
 void Console::Clear()
 {
-    for (uint32_t y = 0; y < 25; ++y)
+    for (uint32_t y = 0; y < 5; ++y)
         for (uint32_t x = 0; x < 80; ++x)
             videoMemory[80 * y + x] = (color << 8) | ' ';
 
@@ -219,19 +219,19 @@ uint32_t Console::ReadLine(KeyboardDriver& keyboard, char* buffer, uint32_t maxL
 
 void Console::Scroll()
 {
-    if (cursorY < 25)
+    if (cursorY < 5)
         return;
 
-    for (uint32_t y = 1; y < 25; ++y)
+    for (uint32_t y = 1; y < 5; ++y)
     {
         for (uint32_t x = 0; x < 80; ++x)
             videoMemory[80 * (y - 1) + x] = videoMemory[80 * y + x];
     }
 
     for (uint32_t x = 0; x < 80; ++x)
-        videoMemory[80 * 24 + x] = (color << 8) | ' ';
+        videoMemory[80 * 4 + x] = (color << 8) | ' ';
 
-    cursorY = 24;
+    cursorY = 4;
 }
 
 void Console::UpdateCursor()
