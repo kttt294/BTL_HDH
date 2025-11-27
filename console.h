@@ -35,5 +35,6 @@ private:
 Console& GetConsole();
 void printf(const char* str);
 void println(const char* str);
+void SetPaletteColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);
 
 #endif

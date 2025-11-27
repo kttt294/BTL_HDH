@@ -2,6 +2,11 @@
 #include "keyboard.h"
 #include "port.h"
 
+namespace
+{
+    constexpr double DOUBLE_EPSILON = 1e-6;
+}
+
 static Console globalConsole;
 
 Console::Console(uint16_t* videoMemory)
@@ -100,31 +105,37 @@ void Console::PrintInt(int32_t value)
 
 void Console::PrintDouble(double value, uint8_t precision)
 {
-    // Handle negative values
-    if (value < 0.0)
+    bool isNegative = value < 0.0;
+    double absValue = isNegative ? -value : value;
+
+    int32_t intPart = (int32_t)absValue;
+    double fracPart = absValue - (double)intPart;
+
+    // If the fractional part is effectively zero, print as integer
+    if (fracPart < DOUBLE_EPSILON)
     {
+        if (isNegative && intPart != 0)
         PutChar('-');
-        value = -value;
+
+        if (intPart == 0)
+            PutChar('0');
+        else
+            PrintInt(intPart);
+
+        return;
     }
 
-    // Print integer part
-    int32_t intPart = (int32_t)value;
-    
-    // Handle case where intPart might be 0 but we still need to show it
+    if (isNegative)
+        PutChar('-');
+
     if (intPart == 0)
-    {
         PutChar('0');
-    }
     else
-    {
         PrintInt(intPart);
-    }
 
-    // Print decimal part
     if (precision > 0)
     {
         PutChar('.');
-        double fracPart = value - (double)intPart;
 
         for (uint8_t i = 0; i < precision; ++i)
         {
@@ -159,7 +170,7 @@ void Console::Backspace()
 
 void Console::Clear()
 {
-    for (uint32_t y = 0; y < 5; ++y)
+    for (uint32_t y = 0; y < 25; ++y)
         for (uint32_t x = 0; x < 80; ++x)
             videoMemory[80 * y + x] = (color << 8) | ' ';
 
@@ -219,19 +230,19 @@ uint32_t Console::ReadLine(KeyboardDriver& keyboard, char* buffer, uint32_t maxL
 
 void Console::Scroll()
 {
-    if (cursorY < 5)
+    if (cursorY < 25)
         return;
 
-    for (uint32_t y = 1; y < 5; ++y)
+    for (uint32_t y = 1; y < 25; ++y)
     {
         for (uint32_t x = 0; x < 80; ++x)
             videoMemory[80 * (y - 1) + x] = videoMemory[80 * y + x];
     }
 
     for (uint32_t x = 0; x < 80; ++x)
-        videoMemory[80 * 4 + x] = (color << 8) | ' ';
+        videoMemory[80 * 24 + x] = (color << 8) | ' ';
 
-    cursorY = 4;
+    cursorY = 24;
 }
 
 void Console::UpdateCursor()
@@ -250,6 +261,17 @@ void Console::UpdateCursor()
 Console& GetConsole()
 {
     return globalConsole;
+}
+
+void SetPaletteColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue)
+{
+    Port8Bit dacWrite(0x3C8);
+    Port8Bit dacData(0x3C9);
+
+    dacWrite.Write(index);
+    dacData.Write(red);
+    dacData.Write(green);
+    dacData.Write(blue);
 }
 
 void printf(const char* str)
