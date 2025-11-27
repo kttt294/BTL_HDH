@@ -7,7 +7,7 @@ Calculator OS – BTL Hệ Điều Hành
     24100093: Kiều Thị Thu Trang
     24100012: Trần Minh Sang
     24102651: Ngô Quang Thiện
-            : Trương Việt Thành
+    24106898: Trương Việt Thành
 Mục tiêu của dự án là xây dựng một hệ điều hành dạng mini với giao diện console, hỗ trợ bàn phím và những chức năng tính toán cơ bản.
 
 2. Kiến trúc tổng quát
