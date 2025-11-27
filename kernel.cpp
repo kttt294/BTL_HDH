@@ -163,6 +163,7 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 {
                     if (solution.infiniteSolutions)
                     {
+                        console.SetColor(0x0B, 0x00);
                         console.PrintLine(" Solution: Infinite solutions");
                     }
                     else
@@ -175,6 +176,7 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 }
                 else
                 {
+                    console.SetColor(0x0B, 0x00);
                     console.PrintLine(" Solution: No solution");
                 }
                 
@@ -234,6 +236,7 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 
                 if (solution.hasRealSolutions)
                 {
+                    console.SetColor(0x0B, 0x00);
                     console.Print(" Solution: x1 = ");
                     console.PrintDouble(solution.root1, 4);
                     console.Print(", x2 = ");
@@ -242,6 +245,7 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 }
                 else
                 {
+                    console.SetColor(0x0B, 0x00);
                     console.Print(" Solution: No real solutions (discriminant = ");
                     console.PrintDouble(solution.discriminant, 4);
                     console.PrintLine(")");
