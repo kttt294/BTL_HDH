@@ -74,9 +74,9 @@ static void MenuBasicCalculations(Console& console, KeyboardDriver& keyboard)
     while (true)
     {
         console.SetColor(0x0E, 0x00);  // Yellow
-        console.Print("Basic Calc> ");
+        console.Print(" Basic Calc> ");
         console.SetColor(0x0F, 0x00);  // White
-        console.PrintLine("(Enter 'back' to return to main menu)");
+        console.PrintLine(" (Enter 'back' to return to main menu)");
         console.SetColor(0x0F, 0x00);
         
         console.ReadLine(keyboard, inputBuffer, sizeof(inputBuffer));
@@ -93,14 +93,14 @@ static void MenuBasicCalculations(Console& console, KeyboardDriver& keyboard)
         if (result.valid)
         {
             console.SetColor(0x0B, 0x00);  // Cyan
-            console.Print("Result: ");
+            console.Print(" Result: ");
             console.PrintDouble(result.value, 2);
             console.PrintLine("");
         }
         else
         {
             console.SetColor(0x0C, 0x00);  // Red
-            console.Print("Error: ");
+            console.Print(" Error: ");
             console.PrintLine(result.errorMessage);
         }
         
@@ -116,9 +116,9 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
     
     // Print initial prompt
     console.SetColor(0x0E, 0x00);  // Yellow
-    console.Print("Equations> ");
+    console.Print(" Equations> ");
     console.SetColor(0x0F, 0x00);  // White
-    console.PrintLine("(1: Linear, 2: Quadratic, 'back': Main menu)");
+    console.PrintLine(" (1: Linear, 2: Quadratic, 'back': Main menu)");
     
     while (true)
     {
@@ -136,8 +136,8 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
         if (inputBuffer[0] == '1' && (inputBuffer[1] == '\0' || inputBuffer[1] == '\n'))
         {
             console.SetColor(0x0B, 0x00);  // Cyan
-            console.PrintLine("Linear equation: ax + b = 0");
-            console.Print("Enter a and b: ");
+            console.PrintLine(" Linear equation: ax + b = 0");
+            console.Print(" Enter a and b: ");
             console.SetColor(0x0F, 0x00);
             
             console.ReadLine(keyboard, inputBuffer, sizeof(inputBuffer));
@@ -151,9 +151,9 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
             {
                 LinearSolution solution = Calculator::SolveLinear(a, b);
                 console.SetColor(0x0B, 0x00);
-                console.Print("Equation: ");
+                console.Print(" Equation: ");
                 console.PrintDouble(a, 2);
-                console.Print("x + ");
+                console.Print(" x + ");
                 console.PrintDouble(b, 2);
                 console.PrintLine(" = 0");
                 
@@ -161,47 +161,47 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 {
                     if (solution.infiniteSolutions)
                     {
-                        console.PrintLine("Solution: Infinite solutions");
+                        console.PrintLine(" Solution: Infinite solutions");
                     }
                     else
                     {
-                        console.Print("Solution: x = ");
+                        console.Print(" Solution: x = ");
                         console.PrintDouble(solution.root, 4);
                         console.PrintLine("");
                     }
                 }
                 else
                 {
-                    console.PrintLine("Solution: No solution");
+                    console.PrintLine(" Solution: No solution");
                 }
                 
                 console.SetColor(0x0F, 0x00);
                 console.PrintLine("");
                 // Keep the prompt visible
                 console.SetColor(0x0E, 0x00);
-                console.Print("Equations> ");
+                console.Print(" Equations> ");
                 console.SetColor(0x0F, 0x00);
-                console.PrintLine("(1: Linear, 2: Quadratic, 'back': Main menu)");
+                console.PrintLine(" (1: Linear, 2: Quadratic, 'back': Main menu)");
             }
             else
             {
                 console.SetColor(0x0C, 0x00);
-                console.PrintLine("Error: Invalid input. Enter two numbers: a b");
+                console.PrintLine(" Error: Invalid input. Enter two numbers: a b");
                 console.SetColor(0x0F, 0x00);
                 console.PrintLine("");
                 // Keep the prompt visible
                 console.SetColor(0x0E, 0x00);
-                console.Print("Equations> ");
+                console.Print(" Equations> ");
                 console.SetColor(0x0F, 0x00);
-                console.PrintLine("(1: Linear, 2: Quadratic, 'back': Main menu)");
+                console.PrintLine(" (1: Linear, 2: Quadratic, 'back': Main menu)");
             }
         }
         // Quadratic equation
         else if (inputBuffer[0] == '2' && (inputBuffer[1] == '\0' || inputBuffer[1] == '\n'))
         {
             console.SetColor(0x0B, 0x00);  // Cyan
-            console.PrintLine("Quadratic equation: ax^2 + bx + c = 0");
-            console.Print("Enter a, b, and c: ");
+            console.PrintLine(" Quadratic equation: ax^2 + bx + c = 0");
+            console.Print(" Enter a, b, and c: ");
             console.SetColor(0x0F, 0x00);
             
             console.ReadLine(keyboard, inputBuffer, sizeof(inputBuffer));
@@ -216,9 +216,9 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
             {
                 QuadraticSolution solution = Calculator::SolveQuadratic(a, b, c);
                 console.SetColor(0x0B, 0x00);
-                console.Print("Equation: ");
+                console.Print(" Equation: ");
                 console.PrintDouble(a, 2);
-                console.Print("x^2 + ");
+                console.Print(" x^2 + ");
                 console.PrintDouble(b, 2);
                 console.Print("x + ");
                 console.PrintDouble(c, 2);
@@ -226,12 +226,12 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 
                 if (solution.reducedToLinear)
                 {
-                    console.PrintLine("Note: Reduced to linear equation");
+                    console.PrintLine(" Note: Reduced to linear equation");
                 }
                 
                 if (solution.hasRealSolutions)
                 {
-                    console.Print("Solution: x1 = ");
+                    console.Print(" Solution: x1 = ");
                     console.PrintDouble(solution.root1, 4);
                     console.Print(", x2 = ");
                     console.PrintDouble(solution.root2, 4);
@@ -239,7 +239,7 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 }
                 else
                 {
-                    console.Print("Solution: No real solutions (discriminant = ");
+                    console.Print(" Solution: No real solutions (discriminant = ");
                     console.PrintDouble(solution.discriminant, 4);
                     console.PrintLine(")");
                 }
@@ -248,34 +248,34 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 console.PrintLine("");
                 // Keep the prompt visible
                 console.SetColor(0x0E, 0x00);
-                console.Print("Equations> ");
+                console.Print(" Equations> ");
                 console.SetColor(0x0F, 0x00);
-                console.PrintLine("(1: Linear, 2: Quadratic, 'back': Main menu)");
+                console.PrintLine(" (1: Linear, 2: Quadratic, 'back': Main menu)");
             }
             else
             {
                 console.SetColor(0x0C, 0x00);
-                console.PrintLine("Error: Invalid input. Enter three numbers: a b c");
+                console.PrintLine(" Error: Invalid input. Enter three numbers: a b c");
                 console.SetColor(0x0F, 0x00);
                 console.PrintLine("");
                 // Keep the prompt visible
                 console.SetColor(0x0E, 0x00);
-                console.Print("Equations> ");
+                console.Print(" Equations> ");
                 console.SetColor(0x0F, 0x00);
-                console.PrintLine("(1: Linear, 2: Quadratic, 'back': Main menu)");
+                console.PrintLine(" (1: Linear, 2: Quadratic, 'back': Main menu)");
             }
         }
         else
         {
             console.SetColor(0x0C, 0x00);
-            console.PrintLine("Error: Invalid choice. Enter 1, 2, or 'back'");
+            console.PrintLine(" Error: Invalid choice. Enter 1, 2, or 'back'");
             console.SetColor(0x0F, 0x00);
             console.PrintLine("");
             // Keep the prompt visible
             console.SetColor(0x0E, 0x00);
-            console.Print("Equations> ");
+            console.Print(" Equations> ");
             console.SetColor(0x0F, 0x00);
-            console.PrintLine("(1: Linear, 2: Quadratic, 'back': Main menu)");
+            console.PrintLine(" (1: Linear, 2: Quadratic, 'back': Main menu)");
         }
     }
 }
@@ -284,15 +284,16 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
 static void ShowMainMenu(Console& console)
 {
     console.SetColor(0x0F, 0x00);
-    console.PrintLine("================================================================================");
-    console.PrintLine("                             Calculator OS - NHOM 2                             ");
-    console.PrintLine("================================================================================");
+    console.PrintLine(" ==============================================================================");
+    console.PrintLine("                             Calculator OS - NHOM 2");
+    console.PrintLine(" ==============================================================================");
+    console.PrintLine("");
     console.SetColor(0x0F, 0x00);  // White
-    console.PrintLine("1. Basic Calculations (+ - * /)");
-    console.PrintLine("2. Solve Equations");
+    console.PrintLine(" 1. Basic Calculations (+ - * /)");
+    console.PrintLine(" 2. Solve Equations");
     console.PrintLine("");
     console.SetColor(0x0E, 0x00);  // Yellow
-    console.Print("Select menu (1 or 2): ");
+    console.Print(" Select menu (1 or 2): ");
     console.SetColor(0x0F, 0x00);
 }
 
@@ -331,9 +332,9 @@ extern "C" void kernelMain(void* multibootStruct, uint32_t magicNum)
         {
             console.Clear();
             console.SetColor(0x0F, 0x00);
-            console.PrintLine("=== Menu 1: Basic Calculations ===");
+            console.PrintLine(" === Menu 1: Basic Calculations ===");
             console.SetColor(0x0F, 0x00);
-            console.PrintLine("Supported operations: + - * /");
+            console.PrintLine(" Supported operations: + - * /");
             console.PrintLine("");
             MenuBasicCalculations(console, keyboard);
         }
@@ -341,7 +342,7 @@ extern "C" void kernelMain(void* multibootStruct, uint32_t magicNum)
         {
             console.Clear();
             console.SetColor(0x0F, 0x00);
-            console.PrintLine("=== Menu 2: Solve Equations ===");
+            console.PrintLine(" === Menu 2: Solve Equations ===");
             console.SetColor(0x0F, 0x00);
             console.PrintLine("");
             MenuEquations(console, keyboard);
@@ -349,7 +350,7 @@ extern "C" void kernelMain(void* multibootStruct, uint32_t magicNum)
         else
         {
             console.SetColor(0x0C, 0x00);  // Red
-            console.PrintLine("Invalid choice! Please enter 1 or 2.");
+            console.PrintLine(" Invalid choice! Please enter 1 or 2.");
             console.SetColor(0x0F, 0x00);
             console.PrintLine("");
             // Wait a bit before showing menu again
