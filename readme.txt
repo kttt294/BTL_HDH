@@ -22,8 +22,8 @@ Calculator OS là một mini OS chạy trực tiếp trên phần cứng x86, c�
 
 3. Tính năng nổi bật
 - Menu chính gồm 2 mục rõ ràng:
-    1. Basic Calculations: nhập biểu thức dạng a op b (hỗ trợ số âm, số thực) và nhận kết quả hoặc thông báo lỗi cú pháp/chia 0.
-    2. Solve Equations: lựa chọn 1 (phương trình bậc nhất ax + b = 0) hoặc 2 (bậc hai ax^2 + bx + c = 0), có kiểm tra dữ liệu và thông báo trường hợp vô nghiệm/vô số nghiệm.
+    Basic Calculations: nhập biểu thức dạng a op b (hỗ trợ số âm, số thực) và nhận kết quả hoặc thông báo lỗi cú pháp/chia 0.
+    Solve Equations: lựa chọn 1 (phương trình bậc nhất ax + b = 0) hoặc 2 (bậc hai ax^2 + bx + c = 0), có kiểm tra dữ liệu và thông báo trường hợp vô nghiệm/vô số nghiệm.
 - Console sử dụng màu để phân tách tiêu đề, cảnh báo, kết quả, giúp trải nghiệm gần với ứng dụng thực tế.
 - Input line editor hỗ trợ Backspace, buffer giới hạn và xuống dòng sạch, đảm bảo thao tác trên phần cứng thật hoặc trình giả lập.
 - Toàn bộ hệ thống hoạt động mà không cần thư viện chuẩn, phù hợp cho môi trường OS Dev.
