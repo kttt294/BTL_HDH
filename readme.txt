@@ -26,12 +26,12 @@ Mục tiêu của dự án là xây dựng một hệ điều hành dạng mini 
 4. Yêu cầu môi trường
 - Trình biên dịch hỗ trợ C++17 (g++, clang++).
 - Trình giả lập hoặc môi trường boot như QEMU/Bochs để kiểm thử hệ điều hành.
-- Công cụ tạo ảnh đĩa (nếu cần) như nasm, grub-mkrescue.
+- Công cụ tạo ảnh đĩa như nasm, grub-mkrescue.
 
 5. Hướng dẫn build & chạy
 Biên dịch toàn bộ mã nguồn bằng chuỗi công cụ cross-compile (ví dụ i686-elf-g++).
 Liên kết thành kernel ELF, sau đó đóng gói cùng GRUB để tạo ISO bootable.
-Chạy ISO bằng QEMU: qemu-system-i386 -cdrom CalculatorOS.iso.
+Chạy ISO bằng QEMU: qemu-system-i386 -cdrom CalculatorOS.iso (hoặc có thể dùng các phần mềm tạo máy ảo).
 
 6. Định hướng phát triển
 - Bổ sung thêm chức năng giải hệ phương trình, ma trận.
