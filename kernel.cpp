@@ -79,6 +79,8 @@ static void MenuBasicCalculations(Console& console, KeyboardDriver& keyboard)
         console.PrintLine(" (Enter 'back' to return to main menu)");
         console.SetColor(0x0F, 0x00);
         
+        console.Print(" Enter the calculation: ");
+        console.SetColor(0x0F, 0x00);
         console.ReadLine(keyboard, inputBuffer, sizeof(inputBuffer));
         
         // Check if user wants to go back
@@ -123,6 +125,8 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
     while (true)
     {
         console.SetColor(0x0F, 0x00);
+        console.Print(" Enter the equation: ");
+        console.SetColor(0x0F, 0x00);
         console.ReadLine(keyboard, inputBuffer, sizeof(inputBuffer));
         
         // Check if user wants to go back
@@ -135,11 +139,9 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
         // Linear equation
         if (inputBuffer[0] == '1' && (inputBuffer[1] == '\0' || inputBuffer[1] == '\n'))
         {
-            console.SetColor(0x0B, 0x00);  // Cyan
+            console.SetColor(0x0F, 0x00);
             console.PrintLine(" Linear equation: ax + b = 0");
             console.Print(" Enter a and b: ");
-            console.SetColor(0x0F, 0x00);
-            
             console.ReadLine(keyboard, inputBuffer, sizeof(inputBuffer));
             
             int32_t pos = 0;
@@ -150,10 +152,10 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
             if (successA && successB)
             {
                 LinearSolution solution = Calculator::SolveLinear(a, b);
-                console.SetColor(0x0B, 0x00);
+                console.SetColor(0x0F, 0x00);
                 console.Print(" Equation: ");
                 console.PrintDouble(a, 2);
-                console.Print(" x + ");
+                console.Print("x + ");
                 console.PrintDouble(b, 2);
                 console.PrintLine(" = 0");
                 
@@ -165,6 +167,7 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                     }
                     else
                     {
+                        console.SetColor(0x0B, 0x00);
                         console.Print(" Solution: x = ");
                         console.PrintDouble(solution.root, 4);
                         console.PrintLine("");
@@ -199,7 +202,7 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
         // Quadratic equation
         else if (inputBuffer[0] == '2' && (inputBuffer[1] == '\0' || inputBuffer[1] == '\n'))
         {
-            console.SetColor(0x0B, 0x00);  // Cyan
+            console.SetColor(0x0F, 0x00);  // Cyan
             console.PrintLine(" Quadratic equation: ax^2 + bx + c = 0");
             console.Print(" Enter a, b, and c: ");
             console.SetColor(0x0F, 0x00);
@@ -215,7 +218,7 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
             if (successA && successB && successC)
             {
                 QuadraticSolution solution = Calculator::SolveQuadratic(a, b, c);
-                console.SetColor(0x0B, 0x00);
+                console.SetColor(0x0F, 0x00);
                 console.Print(" Equation: ");
                 console.PrintDouble(a, 2);
                 console.Print(" x^2 + ");
