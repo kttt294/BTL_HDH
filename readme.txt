@@ -35,7 +35,9 @@ Calculator OS là một mini OS chạy trực tiếp trên phần cứng x86, c�
 - Trình giả lập/máy ảo hỗ trợ boot từ ISO như QEMU, Bochs, VirtualBox (target run có sẵn cho VirtualBox).
 
 5. Hướng dẫn build & chạy
-- Cài đặt toolchain cross-compile i686-elf và đảm bảo grub-mkrescue nhận diện được xorriso.
+- Trong Linux:
+    sudo apt update
+    sudo apt install build-essential grub-pc-bin xorriso
 - Trong thư mục dự án:
     make clean (tùy chọn) để xoá sản phẩm cũ.
     make mykernel.iso biên dịch tất cả .cpp/.s vàvà đóng gói kernel vào cấu trúc GRUB (iso/boot/mykernel.bin) và tạo ảnh ISO bootable.
