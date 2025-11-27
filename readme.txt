@@ -18,8 +18,8 @@ Mục tiêu của dự án là xây dựng một hệ điều hành dạng mini 
 
 3. Tính năng nổi bật
 - Menu chính gồm 2 mục:
-  1. Calculations: hỗ trợ các phép +, -, *, / với parser biểu thức.
-  2. Equations: giải phương trình bậc nhất và bậc hai, có kiểm tra đầu vào.
+    Calculations: hỗ trợ các phép +, -, *, / với parser biểu thức.
+    Equations: giải phương trình bậc nhất và bậc hai, có kiểm tra đầu vào.
 - Hỗ trợ màu sắc console để phân biệt thông điệp, cảnh báo và kết quả.
 - Kiến trúc modular, tách biệt giữa giao diện, xử lý bàn phím và logic tính toán.
 
