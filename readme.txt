@@ -3,7 +3,11 @@ Calculator OS – BTL Hệ Điều Hành
 =================================
 
 1. Giới thiệu
-Đây là dự án bài tập lớn môn Hệ Điều Hành của sinh viên Trường Công nghệ Thông tin – Đại học Phenikaa.
+Đây là dự án bài tập lớn môn Hệ Điều Hành của sinh viên Trường Công nghệ Thông tin – Đại học Phenikaa, gồm:
+    24100093: Kiều Thị Thu Trang
+    24100012: Trần Minh Sang
+    24102651: Ngô Quang Thiện
+            : Trương Việt Thành
 Mục tiêu của dự án là xây dựng một hệ điều hành dạng mini với giao diện console, hỗ trợ bàn phím và những chức năng tính toán cơ bản.
 
 2. Kiến trúc tổng quát
@@ -36,11 +40,5 @@ Chạy ISO bằng QEMU: qemu-system-i386 -cdrom CalculatorOS.iso.
 - Tích hợp đơn vị đo lường hoặc module chuyển đổi.
 
 7. Liên hệ
-- Nhóm sinh viên BTL Hệ Điều Hành – Trường CNTT, Đại học Phenikaa gồm:
-    24100093: Kiều Thị Thu Trang
-    24100012: Trần Minh Sang
-    24102651: Ngô Quang Thiện
-    : Trương Việt Thành
-    
 - Email liên hệ: 24100093@st.phenikaa-uni.edu.vn
 
