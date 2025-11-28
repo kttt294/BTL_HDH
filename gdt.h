@@ -9,7 +9,7 @@ public:
     GlobalDescriptorTable();
     ~GlobalDescriptorTable();
 
-    // Gets the offset of code/data segments
+    // Lấy độ lệch (offset) của các phân đoạn mã
     uint16_t CodeSegmentDescriptor();
     uint16_t DataSegmentDescriptor();
 

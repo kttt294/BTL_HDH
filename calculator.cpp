@@ -132,7 +132,6 @@ namespace Calculator
             return result;
         }
 
-        // Parse the expression to extract left operand, operator, and right operand
         double leftOperand = 0.0;
         double rightOperand = 0.0;
         char op = '\0';
@@ -140,18 +139,15 @@ namespace Calculator
         bool isNegative = false;
         int32_t i = 0;
 
-        // Skip leading whitespace
         while (expression[i] == ' ')
             ++i;
 
-        // Check if first character is negative sign
         if (expression[i] == '-')
         {
             isNegative = true;
             ++i;
         }
 
-        // Parse left operand
         bool hasDigit = false;
         bool hasDecimal = false;
         double decimalPlace = 0.1;
@@ -179,7 +175,7 @@ namespace Calculator
             }
             else if (c == ' ')
             {
-                // Skip whitespace
+                // Bỏ qua khoảng trắng
             }
             else if (c == '+' || c == '-' || c == '*' || c == '/')
             {
@@ -211,11 +207,9 @@ namespace Calculator
             return result;
         }
 
-        // Skip whitespace after operator
         while (expression[i] == ' ')
             ++i;
 
-        // Check for negative right operand
         bool rightIsNegative = false;
         if (expression[i] == '-')
         {
@@ -223,7 +217,6 @@ namespace Calculator
             ++i;
         }
 
-        // Parse right operand
         hasDigit = false;
         hasDecimal = false;
         decimalPlace = 0.1;
@@ -251,7 +244,7 @@ namespace Calculator
             }
             else if (c == ' ')
             {
-                // Skip whitespace
+                // Bỏ qua khoảng trắng
             }
             else
             {
@@ -270,7 +263,6 @@ namespace Calculator
         if (rightIsNegative)
             rightOperand = -rightOperand;
 
-        // Perform the operation
         switch (op)
         {
             case '+':

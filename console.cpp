@@ -86,7 +86,6 @@ void Console::PrintInt(int32_t value)
     if (value < 0)
     {
         isNegative = true;
-        // Handle negative numbers safely to avoid overflow
         value = -value;
     }
 
@@ -111,7 +110,6 @@ void Console::PrintDouble(double value, uint8_t precision)
     int32_t intPart = (int32_t)absValue;
     double fracPart = absValue - (double)intPart;
 
-    // If the fractional part is effectively zero, print as integer
     if (fracPart < DOUBLE_EPSILON)
     {
         if (isNegative && intPart != 0)

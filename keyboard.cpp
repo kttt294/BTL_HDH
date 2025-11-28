@@ -32,7 +32,6 @@ KeyboardDriver::KeyboardDriver(InterruptManager* interruptManager)
       head(0),
       tail(0)
 {
-    // Flush controller buffers and enable IRQ1
     while (commandPort.Read() & 0x01)
         dataPort.Read();
 
@@ -94,7 +93,7 @@ void KeyboardDriver::Enqueue(char c)
 {
     uint8_t next = (head + 1) % BUFFER_SIZE;
     if (next == tail)
-        tail = (tail + 1) % BUFFER_SIZE; // overwrite oldest if buffer full
+        tail = (tail + 1) % BUFFER_SIZE;
 
     buffer[head] = c;
     head = next;

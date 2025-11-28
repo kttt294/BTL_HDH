@@ -15,7 +15,7 @@ extern "C" void callConstructors()
         (*i)();
 }
 
-// Helper function to parse a number from string
+// Hàm hỗ trợ phân tích một số từ chuỗi
 static double ParseNumber(const char* str, int32_t& pos, bool& success)
 {
     double value = 0.0;
@@ -24,17 +24,17 @@ static double ParseNumber(const char* str, int32_t& pos, bool& success)
     double decimalPlace = 0.1;
     bool hasDigit = false;
     
-    // Skip spaces
+    // Bỏ qua khoảng trắng
     while (str[pos] == ' ') ++pos;
     
-    // Check for negative
+    // Kiểm tra dấu âm
     if (str[pos] == '-')
     {
         isNegative = true;
         ++pos;
     }
     
-    // Parse digits
+    // Phân tích các chữ số
     while (str[pos] != '\0' && str[pos] != ' ' && str[pos] != '\n')
     {
         if (str[pos] >= '0' && str[pos] <= '9')
@@ -83,7 +83,7 @@ static void MenuBasicCalculations(Console& console, KeyboardDriver& keyboard)
         console.SetColor(0x0F, 0x00);
         console.ReadLine(keyboard, inputBuffer, sizeof(inputBuffer));
         
-        // Check if user wants to go back
+        // Kiểm tra nếu người dùng muốn quay lại
         if (inputBuffer[0] == 'b' && inputBuffer[1] == 'a' && inputBuffer[2] == 'c' && 
             inputBuffer[3] == 'k' && (inputBuffer[4] == '\0' || inputBuffer[4] == '\n'))
         {
@@ -116,10 +116,9 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
 {
     char inputBuffer[128];
     
-    // Print initial prompt
-    console.SetColor(0x0E, 0x00);  // Yellow
+    console.SetColor(0x0E, 0x00);  // Vàng
     console.Print(" Equations> ");
-    console.SetColor(0x0F, 0x00);  // White
+    console.SetColor(0x0F, 0x00);  // Trắng
     console.PrintLine(" (1: Linear, 2: Quadratic, 'back': Main menu)");
     
     while (true)
@@ -129,14 +128,12 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
         console.SetColor(0x0F, 0x00);
         console.ReadLine(keyboard, inputBuffer, sizeof(inputBuffer));
         
-        // Check if user wants to go back
         if (inputBuffer[0] == 'b' && inputBuffer[1] == 'a' && inputBuffer[2] == 'c' && 
             inputBuffer[3] == 'k' && (inputBuffer[4] == '\0' || inputBuffer[4] == '\n'))
         {
             return;
         }
         
-        // Linear equation
         if (inputBuffer[0] == '1' && (inputBuffer[1] == '\0' || inputBuffer[1] == '\n'))
         {
             console.SetColor(0x0F, 0x00);
@@ -182,7 +179,6 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 
                 console.SetColor(0x0F, 0x00);
                 console.PrintLine("");
-                // Keep the prompt visible
                 console.SetColor(0x0E, 0x00);
                 console.Print(" Equations> ");
                 console.SetColor(0x0F, 0x00);
@@ -194,14 +190,13 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 console.PrintLine(" Error: Invalid input. Enter two numbers: a b");
                 console.SetColor(0x0F, 0x00);
                 console.PrintLine("");
-                // Keep the prompt visible
                 console.SetColor(0x0E, 0x00);
                 console.Print(" Equations> ");
                 console.SetColor(0x0F, 0x00);
                 console.PrintLine(" (1: Linear, 2: Quadratic, 'back': Main menu)");
             }
         }
-        // Quadratic equation
+
         else if (inputBuffer[0] == '2' && (inputBuffer[1] == '\0' || inputBuffer[1] == '\n'))
         {
             console.SetColor(0x0F, 0x00);  // Cyan
@@ -253,7 +248,6 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 
                 console.SetColor(0x0F, 0x00);
                 console.PrintLine("");
-                // Keep the prompt visible
                 console.SetColor(0x0E, 0x00);
                 console.Print(" Equations> ");
                 console.SetColor(0x0F, 0x00);
@@ -265,7 +259,6 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
                 console.PrintLine(" Error: Invalid input. Enter three numbers: a b c");
                 console.SetColor(0x0F, 0x00);
                 console.PrintLine("");
-                // Keep the prompt visible
                 console.SetColor(0x0E, 0x00);
                 console.Print(" Equations> ");
                 console.SetColor(0x0F, 0x00);
@@ -278,7 +271,6 @@ static void MenuEquations(Console& console, KeyboardDriver& keyboard)
             console.PrintLine(" Error: Invalid choice. Enter 1, 2, or 'back'");
             console.SetColor(0x0F, 0x00);
             console.PrintLine("");
-            // Keep the prompt visible
             console.SetColor(0x0E, 0x00);
             console.Print(" Equations> ");
             console.SetColor(0x0F, 0x00);
@@ -295,21 +287,19 @@ static void ShowMainMenu(Console& console)
     console.PrintLine("                             Calculator OS - NHOM 2");
     console.PrintLine(" ==============================================================================");
     console.PrintLine("");
-    console.SetColor(0x0F, 0x00);  // White
+    console.SetColor(0x0F, 0x00);
     console.PrintLine(" 1. Basic Calculations (+ - * /)");
     console.PrintLine(" 2. Solve Equations");
     console.PrintLine("");
-    console.SetColor(0x0E, 0x00);  // Yellow
+    console.SetColor(0x0E, 0x00);
     console.Print(" Select menu (1 or 2): ");
     console.SetColor(0x0F, 0x00);
 }
 
 extern "C" void kernelMain(void* multibootStruct, uint32_t magicNum)
 {
-    // Validate multiboot magic number
     if (magicNum != 0x2BADB002)
     {
-        // Invalid boot, halt
         while (true)
             asm("hlt");
     }
@@ -326,7 +316,6 @@ extern "C" void kernelMain(void* multibootStruct, uint32_t magicNum)
 
     char inputBuffer[128];
 
-    // Main menu loop
     while (true)
     {
         console.Clear();
@@ -356,11 +345,12 @@ extern "C" void kernelMain(void* multibootStruct, uint32_t magicNum)
         }
         else
         {
-            console.SetColor(0x0C, 0x00);  // Red
+            console.SetColor(0x0C, 0x00);
             console.PrintLine(" Invalid choice! Please enter 1 or 2.");
             console.SetColor(0x0F, 0x00);
             console.PrintLine("");
-            // Wait a bit before showing menu again
+            
+            // Đợi một chút trước khi hiển thị lại menu
             for (volatile int i = 0; i < 10000000; ++i);
         }
     }
