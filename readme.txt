@@ -53,4 +53,3 @@ Calculator OS là một mini OS chạy trực tiếp trên phần cứng x86, c�
 
 7. Liên hệ
 - Email liên hệ: 24100093@st.phenikaa-uni.edu.vn
-
