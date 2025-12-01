@@ -303,4 +303,3 @@ namespace Calculator
         return result;
     }
 }
-
